@@ -145,9 +145,14 @@
         flex-direction: column;
         padding: 16px 24px;
         /* More padding on sides */
-        padding-bottom: calc(16px + env(safe-area-inset-bottom));
-        margin-bottom: 15px;
-        /* Lowered as requested */
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+        /* Increased bottom padding for "taller" look */
+        margin-bottom: 0;
+        /* Ensure it sits flush at bottom if that matches standard nav bar feel, or keep margin if floating style desired. 
+           User said "posisi sudah tepat", so modifying padding is safest for "height". 
+           If I remove margin-bottom it might sit lower. Let's try keeping margin but just pumping padding.
+           Actually user said "tinggiin yg bagian bawahnya", usually implies visual height/thickness.
+        */
         gap: 16px;
         /* Gap between sections (Track info / Controls) */
         bottom: 0;
