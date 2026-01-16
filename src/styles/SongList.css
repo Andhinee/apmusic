@@ -13,6 +13,14 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    background-color: #1a1a1a;
+    /* Match background to hide scrolling content behind it */
+    padding: 16px 0;
+    /* Add padding since we might be flush with top now */
+    margin-top: -32px;
+    /* Counteract container padding for full width feel? or just adjust container */
+    padding-top: 32px;
+    /* Restore top space */
 }
 
 .header h1 {
@@ -148,6 +156,14 @@
     margin: 0 16px;
     flex: 1;
     max-width: 400px;
+
+    /* Sticky Magic */
+    position: sticky;
+    top: 24px;
+    /* Give it some breathing room from the top edge */
+    z-index: 20;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    /* Shadow to separate from content below */
 }
 
 .search-icon {
