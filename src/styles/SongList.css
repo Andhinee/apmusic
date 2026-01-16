@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 0px;
     background-color: #1a1a1a;
     /* Match background to hide scrolling content behind it */
     padding: 16px 0;
@@ -156,14 +156,30 @@
     margin: 0 16px;
     flex: 1;
     max-width: 400px;
+}
 
-    /* Sticky Magic */
+.sticky-search-header {
     position: sticky;
-    top: 24px;
-    /* Give it some breathing room from the top edge */
-    z-index: 20;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    /* Shadow to separate from content below */
+    top: 0;
+    z-index: 100;
+    background-color: #1a1a1a;
+    /* Match container background or component background */
+    padding: 8px 0 16px 0;
+    margin-top: 0;
+    /* Pull it up a bit if needed, or adjust padding */
+    display: flex;
+    justify-content: flex-end;
+    /* Or center, depending on preference. Right now search-container is flex:1 */
+}
+
+/* Ensure search container takes full width inside sticky header if needed, or adjust alignment */
+.sticky-search-header .search-container {
+    margin: 0;
+    /* Reset margins inside this new context if needed */
+    width: 100%;
+    /* Take full width of the sticky header */
+    max-width: none;
+    /* Or keep max-width if you want it limited */
 }
 
 .search-icon {

@@ -56,17 +56,6 @@ const SongList = () => {
             <div className="header">
                 <h1>Your Library</h1>
 
-                <div className="search-container">
-                    <Search className="search-icon" size={20} />
-                    <input
-                        type="text"
-                        placeholder="Search for songs..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="search-input"
-                    />
-                </div>
-
                 <label className="import-btn">
                     Import Songs
                     <input
@@ -78,6 +67,20 @@ const SongList = () => {
                     />
                 </label>
             </div>
+
+            <div className="sticky-search-header">
+                <div className="search-container">
+                    <Search className="search-icon" size={20} />
+                    <input
+                        type="text"
+                        placeholder="Search for songs..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="search-input"
+                    />
+                </div>
+            </div>
+
 
             <div className="song-table">
                 <div className="table-header">
