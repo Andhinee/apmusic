@@ -121,6 +121,47 @@ export const PlayerProvider = ({ children }) => {
         };
     }, [nextSong]); // Depend on nextSong to ensure the latest version is called
 
+    // Media Session API for Lock Screen / Notification Controls
+    useEffect(() => {
+        if (!currentSong) return;
+
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: currentSong.title,
+                artist: 'APMusic', // Fallback or assume APMusic if no artist data
+                artwork: [
+                    { src: '/logo.png', sizes: '512x512', type: 'image/png' }
+                ]
+            });
+
+            navigator.mediaSession.setActionHandler('play', () => {
+                resumeSong();
+            });
+
+            navigator.mediaSession.setActionHandler('pause', () => {
+                pauseSong();
+            });
+
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                prevSong();
+            });
+
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                nextSong();
+            });
+
+            navigator.mediaSession.setActionHandler('seekto', (details) => {
+                if (details.seekTime && audioRef.current) {
+                    seek(details.seekTime);
+                }
+            });
+
+            // Explicitly unset the seek handlers to remove the 10s skip buttons
+            navigator.mediaSession.setActionHandler('seekbackward', null);
+            navigator.mediaSession.setActionHandler('seekforward', null);
+        }
+    }, [currentSong, playSong, pauseSong, nextSong, prevSong, resumeSong, seek]);
+
     return (
         <PlayerContext.Provider value={{
             currentSong,
