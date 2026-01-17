@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Play, Clock, Trash2, Search } from 'lucide-react';
+import { Play, Clock, Trash2, Search, X } from 'lucide-react';
 import { addSong, getAllSongs, deleteSong } from '../services/db';
 import { usePlayer } from '../context/PlayerContext';
 import '../styles/SongList.css';
@@ -80,6 +80,13 @@ const SongList = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="search-input"
                     />
+                    {searchTerm && (
+                        <X
+                            className="clear-icon"
+                            size={20}
+                            onClick={() => setSearchTerm("")}
+                        />
+                    )}
                 </div>
             </div>
 
