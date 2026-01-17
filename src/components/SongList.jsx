@@ -47,9 +47,11 @@ const SongList = () => {
         }
     };
 
-    const filteredSongs = songs.filter(song =>
-        song.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredSongs = songs
+        .filter(song =>
+            song.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .sort((a, b) => a.title.localeCompare(b.title));
 
     return (
         <div className="song-list-container">
