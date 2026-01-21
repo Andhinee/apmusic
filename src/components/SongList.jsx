@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Play, Clock, Trash2, Search, X, Home, PlusSquare } from 'lucide-react';
-import { addSong, getAllSongs, deleteSong } from '../services/db';
+import { Play, Clock, Trash2, Search, X, Home, PlusSquare, Plus, Check } from 'lucide-react';
+import { addSong, getAllSongs, deleteSong, togglePlaylist } from '../services/db';
 import { usePlayer } from '../context/PlayerContext';
 import '../styles/SongList.css';
 
@@ -49,10 +49,17 @@ const SongList = () => {
         }
     };
 
+    const handleAddToPlaylist = async (e, id) => {
+        e.stopPropagation();
+        await togglePlaylist(id);
+        await loadSongs();
+    };
+
     const filteredSongs = songs
-        .filter(song =>
-            song.title.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+        .filter(song => {
+            if (view === 'playlist' && !song.inPlaylist) return false;
+            return song.title.toLowerCase().includes(searchTerm.toLowerCase());
+        })
         .sort((a, b) => a.title.localeCompare(b.title));
 
     return (
@@ -74,16 +81,18 @@ const SongList = () => {
                 </div>
                 <h1 className="mobile-title mobile-only">APMusic</h1>
 
-                <label className="import-btn">
-                    Import Songs
-                    <input
-                        type="file"
-                        accept="audio/*, .mp3, .wav, .m4a, .aac, .ogg"
-                        multiple
-                        onChange={handleFileUpload}
-                        style={{ display: 'none' }}
-                    />
-                </label>
+                {view === 'library' && (
+                    <label className="import-btn">
+                        Import Songs
+                        <input
+                            type="file"
+                            accept="audio/*, .mp3, .wav, .m4a, .aac, .ogg"
+                            multiple
+                            onChange={handleFileUpload}
+                            style={{ display: 'none' }}
+                        />
+                    </label>
+                )}
             </div>
 
             <div className="sticky-search-header">
@@ -131,7 +140,14 @@ const SongList = () => {
                         <div className="col-date">
                             {song.dateAdded ? new Date(song.dateAdded).toLocaleDateString() : '-'}
                         </div>
-                        <div className="col-action">
+                        <div className="col-action" style={{ display: 'flex', gap: '8px' }}>
+                            <button
+                                className="delete-btn"
+                                title={song.inPlaylist ? "Remove from Playlist" : "Add to Playlist"}
+                                onClick={(e) => handleAddToPlaylist(e, song.id)}
+                            >
+                                {song.inPlaylist ? <Check size={18} color="#1ed760" /> : <Plus size={18} />}
+                            </button>
                             <button
                                 className="delete-btn"
                                 onClick={(e) => handleDelete(e, song.id)}
@@ -142,9 +158,9 @@ const SongList = () => {
                     </div>
                 ))}
 
-                {songs.length === 0 && (
+                {filteredSongs.length === 0 && (
                     <div className="empty-state">
-                        <p>No songs found. Import audio files to get started.</p>
+                        <p>{view === 'playlist' ? "Your playlist is empty." : "No songs found. Import audio files to get started."}</p>
                     </div>
                 )}
             </div>

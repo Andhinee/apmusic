@@ -35,3 +35,18 @@ export const deleteSong = async (id) => {
   const db = await initDB();
   return db.delete('songs', id);
 };
+
+export const togglePlaylist = async (id) => {
+  const db = await initDB();
+  const tx = db.transaction('songs', 'readwrite');
+  const store = tx.objectStore('songs');
+  const song = await store.get(id);
+
+  if (song) {
+    song.inPlaylist = !song.inPlaylist;
+    await store.put(song);
+  }
+
+  await tx.done;
+  return song;
+};
