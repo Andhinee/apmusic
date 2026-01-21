@@ -395,4 +395,64 @@
         background: white;
         display: block;
     }
+
+    /* PLAYLIST LIST VIEW (New Design) */
+    .playlists-list {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        gap: 0px;
+        /* List items usually touch or small gap */
+    }
+
+    .playlist-item-row {
+        display: flex;
+        align-items: center;
+        padding: 12px 8px;
+        border-radius: 4px;
+        gap: 16px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .playlist-item-row:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .pl-art-box {
+        width: 64px;
+        height: 64px;
+        background-color: #282828;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        /* No border radius or slight? Image 2 has slight. Image 1 "Liked" is square. Let's do rounded 4px */
+        border-radius: 4px;
+    }
+
+    .pl-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .pl-name {
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .pl-meta {
+        color: #b3b3b3;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+    }
 }

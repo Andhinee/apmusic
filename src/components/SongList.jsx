@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Play, Clock, Trash2, Search, X, Home, PlusSquare, Plus, Check, Folder, ArrowLeft } from 'lucide-react';
+import { Play, Clock, Trash2, Search, X, Home, PlusSquare, Plus, Check, Folder, ArrowLeft, Music } from 'lucide-react';
 import { addSong, getAllSongs, deleteSong, getPlaylists, addSongToPlaylist, getPlaylistSongs, removeSongFromPlaylist } from '../services/db';
 import { usePlayer } from '../context/PlayerContext';
 import '../styles/SongList.css';
@@ -171,17 +171,21 @@ const SongList = () => {
             )}
 
             {view === 'playlists' ? (
-                <div className="playlists-grid">
+                <div className="playlists-list">
                     {playlists.map(pl => (
-                        <div key={pl.id} className="playlist-card" onClick={() => openPlaylist(pl)}>
-                            <Folder size={64} />
-                            <span className="name">{pl.name}</span>
-                            <span className="count">{pl.songs.length} Songs</span>
+                        <div key={pl.id} className="playlist-item-row" onClick={() => openPlaylist(pl)}>
+                            <div className="pl-art-box">
+                                <Music size={28} color="#b3b3b3" />
+                            </div>
+                            <div className="pl-info">
+                                <span className="pl-name">{pl.name}</span>
+                                <span className="pl-meta">Playlist • {pl.songs.length} songs</span>
+                            </div>
                         </div>
                     ))}
                     {playlists.length === 0 && (
-                        <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
-                            <p>No playlists yet. Add songs to a playlist to create one!</p>
+                        <div className="empty-state">
+                            <p>No playlists yet.</p>
                         </div>
                     )}
                 </div>

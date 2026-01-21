@@ -436,69 +436,67 @@
     .bottom-nav .nav-item.active {
         color: white;
     }
-
-    .playlists-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-        padding: 16px 0 !important;
-    }
-
-    .playlist-card {
-        padding: 12px !important;
-    }
-
-    .playlist-card svg {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 8px !important;
-    }
-
-    .playlist-card span {
-        font-size: 14px !important;
-    }
 }
 
-.playlists-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 24px;
-    padding: 24px 0;
-}
-
-.playlist-card {
-    background-color: #282828;
-    padding: 16px;
-    border-radius: 8px;
-    cursor: pointer;
+/* PLAYLIST LIST VIEW (New Design) */
+.playlists-list {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    padding-bottom: 24px;
+}
+
+.playlist-item-row {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    aspect-ratio: 1;
+    padding: 12px;
+    background-color: transparent;
+    border-radius: 4px;
+    gap: 16px;
+    cursor: pointer;
     transition: background-color 0.2s;
 }
 
-.playlist-card:hover {
-    background-color: #333;
+.playlist-item-row:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.playlist-card svg {
-    margin-bottom: 12px;
+.pl-art-box {
+    width: 56px;
+    height: 56px;
+    background-color: #282828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    /* Optional: gradient for specific logic later */
 }
 
-.playlist-card span.name {
+.pl-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.pl-name {
     color: white;
-    font-weight: bold;
-    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
 }
 
-.playlist-card span.count {
+.pl-meta {
     color: #b3b3b3;
-    font-size: 12px;
-    margin-top: 4px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
+
+/* Cleanup Mobile Grid overrides if present in media query - handled separately or ignored as class is gone */
