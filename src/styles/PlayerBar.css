@@ -29,6 +29,13 @@
     justify-content: center;
     margin-right: 14px;
     border-radius: 4px;
+    overflow: hidden;
+}
+
+.track-art-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .track-details {
@@ -117,7 +124,6 @@
     border-radius: 50%;
     background: white;
     display: none;
-    /* Show on hover usually */
 }
 
 .progress-container:hover .progress-bar::-webkit-slider-thumb {
@@ -133,74 +139,260 @@
     align-items: center;
 }
 
+.mobile-only {
+    display: none;
+}
+
 @media (max-width: 768px) {
-    .volume-controls {
-        display: none;
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex;
     }
 
     .player-bar {
-        height: auto;
-        min-height: 120px;
-        /* Slightly taller to accommodate spacing */
-        flex-direction: column;
-        padding: 16px 24px;
-        /* More padding on sides */
-        padding-bottom: 16px;
-        /* Increased bottom padding for "taller" look */
-        margin-bottom: 0;
-        /* Ensure it sits flush at bottom if that matches standard nav bar feel, or keep margin if floating style desired. 
-           User said "posisi sudah tepat", so modifying padding is safest for "height". 
-           If I remove margin-bottom it might sit lower. Let's try keeping margin but just pumping padding.
-           Actually user said "tinggiin yg bagian bawahnya", usually implies visual height/thickness.
-        */
-        gap: 16px;
-        /* Gap between sections (Track info / Controls) */
-        bottom: 60px;
-        /* Sit top of bottom nav */
+        height: 56px;
+        bottom: 64px;
+        /* Above bottom nav */
+        left: 8px;
+        right: 8px;
+        width: auto;
+        border-radius: 6px;
+        padding: 0 12px;
+        background-color: #3E2723;
+        /* Match image aesthetic approx (Dark brown) or fallback to #282828 */
+        background: #3a2e2e;
+        /* Dark reddish brown tone */
+        border-top: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
 
     .track-info {
-        width: 100%;
-        margin-bottom: 4px;
-        justify-content: center;
-        /* Center song title on mobile? Optional, but looks better */
+        width: auto;
+        flex: 1;
+        min-width: 0;
     }
 
-    .player-controls {
-        width: 100%;
-        max-width: none;
+    .track-art-placeholder {
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+        border-radius: 4px;
+        background-color: #1a1a1a;
+    }
+
+    .track-details {
+        min-width: 0;
+    }
+
+    .track-name {
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 2px;
+    }
+
+    .track-artist {
+        font-size: 11px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mobile-controls {
+        display: flex;
+        align-items: center;
         gap: 16px;
-        /* Gap between buttons and progress bar */
+    }
+
+    .play-btn-mobile {
+        background: none;
+        color: white;
+        padding: 0;
+    }
+
+    .mobile-progress-line {
+        position: absolute;
+        bottom: 0;
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px);
+        height: 2px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background-color: white;
+        border-radius: 2px;
+    }
+
+    /* MEDIUM EXPANDED PLAYER */
+    .hidden {
+        display: none !important;
+    }
+
+    .medium-player-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 5000;
+        /* Allow clicking strictly above content to close */
+    }
+
+    .medium-player-content {
+        position: absolute;
+        bottom: 60px;
+        /* Above nav */
+        left: 0;
+        right: 0;
+        background-color: #121212;
+        /* Dark background matches image */
+        padding: 24px;
+        padding-bottom: 32px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
         display: flex;
-        flex-direction: column-reverse;
-        /* Put progress bar ON TOP of buttons like Spotify mobile, or just standard */
-    }
-
-    /* Let's keep standard order but add gap */
-    .player-controls {
         flex-direction: column;
-        gap: 20px;
-        /* Space between buttons and progress bar (requested by user 'dikasih jarak juga') */
+        gap: 24px;
+        animation: slideUp 0.3s ease-out;
     }
 
-    .control-buttons {
-        margin-bottom: 0;
+    @keyframes slideUp {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .medium-player-top {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .medium-art {
+        width: 80px;
+        height: 80px;
+        background-color: #282828;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .medium-art img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .medium-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .mp-title {
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mp-artist {
+        color: #b3b3b3;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .medium-controls {
         display: flex;
         justify-content: center;
-        /* Center buttons */
+        align-items: center;
         gap: 40px;
-        /* Space between buttons (requested by user 'dibuatan sedikit berjarak') */
-        width: 100%;
+        /* Spacing between controls */
     }
 
-    .progress-container {
-        padding: 0 4px;
-        width: 100%;
+    .mp-control-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #b3b3b3;
+        transition: color 0.2s;
     }
 
-    /* Simplify controls on mobile */
-    .control-btn:nth-child(1),
-    .control-btn:nth-child(5) {
-        display: none;
+    .mp-control-btn:hover {
+        color: white;
+    }
+
+    .mp-play-btn {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        transition: transform 0.1s;
+    }
+
+    .mp-play-btn:active {
+        transform: scale(0.95);
+    }
+
+    .medium-progress {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #b3b3b3;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .progress-bar.medium {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: #333;
+        /* Darker track */
+        appearance: none;
+        cursor: pointer;
+    }
+
+    .progress-bar.medium::-webkit-slider-thumb {
+        appearance: none;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        background: white;
+        display: block;
     }
 }
