@@ -106,13 +106,22 @@ const SongList = () => {
         <div className="song-list-container">
             <div className="header">
                 {view === 'playlist_detail' ? (
-                    <div className="library-nav" style={{ alignItems: 'center' }}>
+                    <div className="library-nav" style={{
+                        display: 'grid',
+                        gridTemplateColumns: '48px 1fr 48px', /* Ensure enough space for button */
+                        alignItems: 'center',
+                        width: '100%',
+                        gap: 0
+                    }}>
                         <ArrowLeft
                             size={32}
-                            style={{ cursor: 'pointer', marginRight: '16px', color: '#b3b3b3' }}
+                            style={{ cursor: 'pointer', color: '#b3b3b3' }}
                             onClick={() => setView('playlists')}
                         />
-                        <h1>{activePlaylist?.name}</h1>
+                        <h1 style={{ textAlign: 'center', margin: 0, fontSize: '24px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {activePlaylist?.name}
+                        </h1>
+                        <div></div> {/* Spacer */}
                     </div>
                 ) : (
                     <>
