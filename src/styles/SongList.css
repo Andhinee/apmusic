@@ -28,6 +28,29 @@
     font-weight: 700;
 }
 
+.library-nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.nav-item {
+    font-size: 32px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #b3b3b3;
+    transition: color 0.2s;
+    margin: 0;
+}
+
+.nav-item.active {
+    color: white;
+}
+
+.nav-item:hover {
+    color: white;
+}
+
 .import-btn {
     background-color: var(--primary);
     color: white;
@@ -45,6 +68,16 @@
     transform: scale(1.04);
     background-color: #1ed760;
 }
+
+/* Responsive Utilities */
+.mobile-only {
+    display: none !important;
+}
+
+.bottom-nav {
+    display: none;
+}
+
 
 .song-table {
     display: flex;
@@ -264,5 +297,54 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 200px;
+    }
+
+    /* Mobile specific overrides */
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
+    }
+
+    .mobile-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .header {
+        align-items: center;
+        /* Center items in header */
+    }
+
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #121212;
+        border-top: 1px solid #282828;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1000;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .bottom-nav .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: #b3b3b3;
+        gap: 4px;
+    }
+
+    .bottom-nav .nav-item.active {
+        color: white;
     }
 }

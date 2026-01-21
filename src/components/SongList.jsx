@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Play, Clock, Trash2, Search, X } from 'lucide-react';
+import { Play, Clock, Trash2, Search, X, Home, PlusSquare } from 'lucide-react';
 import { addSong, getAllSongs, deleteSong } from '../services/db';
 import { usePlayer } from '../context/PlayerContext';
 import '../styles/SongList.css';
@@ -8,6 +8,8 @@ const SongList = () => {
     const [songs, setSongs] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const { playSong, currentSong } = usePlayer();
+
+    const [view, setView] = useState('library');
 
     const loadSongs = async () => {
         const storedSongs = await getAllSongs();
@@ -56,7 +58,21 @@ const SongList = () => {
     return (
         <div className="song-list-container">
             <div className="header">
-                <h1>Your Library</h1>
+                <div className="library-nav desktop-only">
+                    <h1
+                        className={`nav-item ${view === 'library' ? 'active' : ''}`}
+                        onClick={() => setView('library')}
+                    >
+                        Your Library
+                    </h1>
+                    <h1
+                        className={`nav-item ${view === 'playlist' ? 'active' : ''}`}
+                        onClick={() => setView('playlist')}
+                    >
+                        Playlist
+                    </h1>
+                </div>
+                <h1 className="mobile-title mobile-only">APMusic</h1>
 
                 <label className="import-btn">
                     Import Songs
@@ -131,6 +147,23 @@ const SongList = () => {
                         <p>No songs found. Import audio files to get started.</p>
                     </div>
                 )}
+            </div>
+
+            <div className="bottom-nav mobile-only">
+                <div
+                    className={`nav-item ${view === 'library' ? 'active' : ''}`}
+                    onClick={() => setView('library')}
+                >
+                    <Home size={24} />
+                    <span>Home</span>
+                </div>
+                <div
+                    className={`nav-item ${view === 'playlist' ? 'active' : ''}`}
+                    onClick={() => setView('playlist')}
+                >
+                    <PlusSquare size={24} />
+                    <span>Playlist</span>
+                </div>
             </div>
         </div>
     );
